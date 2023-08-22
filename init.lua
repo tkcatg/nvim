@@ -3,6 +3,11 @@
 -- ------ --
 --> ./plugin/init.lua
 
+--> ./lua/my/ls/init.lua
+--> ./lua/my/dirtab/init.lua
+
+require("my.dirtab").setup({enable = true})
+
 -- ------- --
 -- Setting --
 -- ------- --
@@ -80,6 +85,10 @@ endfunction
 command! VSetSearch call s:vsetsearch()
 ]])
 
+-- Tab --
+vim.keymap.set('n', ':cd', ':tcd', { silent = false, noremap = true }) -- !!!There's room for further improvement.!!!
+
+-- Leader --
 vim.g.mapleader = ' '
 
 local opt = { silent = true, noremap = true }
