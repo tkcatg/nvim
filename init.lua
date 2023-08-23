@@ -86,11 +86,11 @@ endfunction
 command! VSetSearch call s:vsetsearch()
 ]])
 
--- diagnotic --
+-- Diagnotic --
 vim.keymap.set('n', '[d', function() vim.diagnostic.goto_prev() end, { silent = true, noremap = true })
 vim.keymap.set('n', ']d', function() vim.diagnostic.goto_next() end, { silent = true, noremap = true })
 
--- terminal --
+-- Terminal --
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { silent = true, noremap = true })
 
 -- Tab --
@@ -107,10 +107,9 @@ vim.keymap.set('n', '<Leader>v', '<CMD>:edit $MYVIMRC<CR>', opt)
 vim.keymap.set('n', '<Leader>t', '<CMD>terminal<CR><CMD>startinsert<CR>', opt)
 -- Toggle wrap
 vim.keymap.set('n', '<Leader>w', '<CMD>:lua vim.wo.wrap = not vim.wo.wrap<CR>', opt)
--- Open myls
-vim.keymap.set('n', '<Leader>l', require("my.ls").open, opt)
 -- Fern
 vim.keymap.set('n', '<Leader>o', '<CMD>Fern . -reveal=%:h -drawer -toggle<CR>', opt)
 -- Telescope
-vim.keymap.set('n', '<Leader>f', require("telescope.builtin").find_files, opt)
-vim.keymap.set('n', '<Leader>g', require("telescope.builtin").live_grep, opt)
+vim.keymap.set('n', '<Leader>l', "<CMD>lua require('telescope.builtin').buffers({initial_mode='normal'})<CR>", opt)
+vim.keymap.set('n', '<Leader>f', require('telescope.builtin').find_files, opt)
+vim.keymap.set('n', '<Leader>g', require('telescope.builtin').live_grep, opt)
