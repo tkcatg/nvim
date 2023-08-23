@@ -26,12 +26,13 @@ for key, value in pairs({
   laststatus = 3,
   tabstop = 4,
   smartcase = true,
-  clipboard = unnamedplus,
   winblend = 20,
   pumblend = 20,
 }) do
   vim.opt[key] = value
 end
+
+vim.opt.clipboard:append{'unnamedplus'}
 
 -- ------ --
 -- Keymap --
@@ -85,6 +86,13 @@ endfunction
 command! VSetSearch call s:vsetsearch()
 ]])
 
+-- diagnotic --
+vim.keymap.set('n', '[d', function() vim.diagnostic.goto_prev() end, { silent = true, noremap = true })
+vim.keymap.set('n', ']d', function() vim.diagnostic.goto_next() end, { silent = true, noremap = true })
+
+-- terminal --
+vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { silent = true, noremap = true })
+
 -- Tab --
 vim.keymap.set('n', ':cd', ':tcd', { silent = false, noremap = true }) -- !!!There's room for further improvement.!!!
 
@@ -94,13 +102,15 @@ vim.g.mapleader = ' '
 local opt = { silent = true, noremap = true }
 
 -- Knocking up my vimrc.
-vim.keymap.set('n', '<Leader>v', '<cmd>:edit $MYVIMRC<CR>', opt)
+vim.keymap.set('n', '<Leader>v', '<CMD>:edit $MYVIMRC<CR>', opt)
+-- Entering terminal mode and insert mode.
+vim.keymap.set('n', '<Leader>t', '<CMD>terminal<CR><CMD>startinsert<CR>', opt)
 -- Toggle wrap
-vim.keymap.set('n', '<Leader>w', '<cmd>:lua vim.wo.wrap = not vim.wo.wrap<cr>', opt)
+vim.keymap.set('n', '<Leader>w', '<CMD>:lua vim.wo.wrap = not vim.wo.wrap<CR>', opt)
 -- Open myls
 vim.keymap.set('n', '<Leader>l', require("my.ls").open, opt)
 -- Fern
-vim.keymap.set('n', '<Leader>o', '<cmd>Fern . -reveal=%:h -drawer -toggle<CR>', opt)
+vim.keymap.set('n', '<Leader>o', '<CMD>Fern . -reveal=%:h -drawer -toggle<CR>', opt)
 -- Telescope
 vim.keymap.set('n', '<Leader>f', require("telescope.builtin").find_files, opt)
 vim.keymap.set('n', '<Leader>g', require("telescope.builtin").live_grep, opt)
