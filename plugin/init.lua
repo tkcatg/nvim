@@ -115,15 +115,21 @@ return require('packer').startup(function(use)
   }
   -- LSP --
   use {
-    'williamboman/mason.nvim', -- after 'williamboman/nvim-lsp-installer'
+    'williamboman/mason.nvim', -- after 'williamboman/nvim-esp-installer'
     requires = {
       { 'neovim/nvim-lspconfig' },
       { 'williamboman/mason-lspconfig.nvim' },
+      { 'hrsh7th/cmp-nvim-lsp' },
+      { 'hrsh7th/nvim-cmp' },
     },
     config = function()
+      require('mason').setup()
+      require('cmp').setup({ sources = { { name = 'nvim_lsp' } } })
       require('mason-lspconfig').setup_handlers({
         function(server_name)
-          local opts = {}
+          local opts = {
+            capabilities = require('cmp_nvim_lsp').default_capabilities()
+          }
           -- opts.on_attach = function(_, bufnr)
           --   local bufopts = { silent = true, buffer = bufnr }
           --   vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
@@ -134,9 +140,9 @@ return require('packer').startup(function(use)
           require('lspconfig')[server_name].setup(opts)
         end
       })
-      require('mason').setup()
     end
   }
+
   use {
     'nvim-treesitter/nvim-treesitter',
     config = function()
