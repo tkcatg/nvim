@@ -15,7 +15,18 @@ local packer_bootstrap = ensure_packer()
 
 return require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
-  use 'tpope/vim-surround'
+  use {
+    'machakann/vim-sandwich',
+    config = function()  -- https://qiita.com/seroqn/items/180e8414c0b9b2431648
+      vim.cmd([[
+        let g:sandwich_no_default_key_mappings = 1
+        let g:operator_sandwich_no_default_key_mappings = 1
+        nmap ys <Plug>(operator-sandwich-add)
+        nmap <silent>ds <Plug>(operator-sandwich-delete)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-query-a)
+        nmap <silent>cs <Plug>(operator-sandwich-replace)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-query-a)
+      ]])
+    end
+  }
   use {
     'nvim-lualine/lualine.nvim',
     config = function()
@@ -125,6 +136,17 @@ return require('packer').startup(function(use)
           layout_config = {
             prompt_position="top",
           }
+        },
+        pickers = {
+          buffers = {
+            mappings = {
+              n = {
+                ['<Leader>l'] = function() require('telescope.actions').select_default(vim.fn.bufnr('%')) end,
+                ['x'] = function() require('telescope.actions').delete_buffer(vim.fn.bufnr('%')) end,
+                ['n'] = function() require('telescope.actions').close(vim.fn.bufnr('%')) end,
+              },
+            },
+          },
         }
       })
     end
@@ -169,6 +191,15 @@ return require('packer').startup(function(use)
           disable = {},
         }
       })
+    end
+  }
+  use {
+    'TimUntersberger/neogit',
+    requires = {
+      { 'nvim-lua/plenary.nvim' }
+    },
+    config = function()
+      require('neogit').setup { }
     end
   }
 

@@ -110,6 +110,6 @@ vim.keymap.set('n', '<Leader>w', '<CMD>:lua vim.wo.wrap = not vim.wo.wrap<CR>', 
 -- Fern
 vim.keymap.set('n', '<Leader>o', '<CMD>Fern . -reveal=%:h -drawer -toggle<CR>', opt)
 -- Telescope
-vim.keymap.set('n', '<Leader>l', "<CMD>lua require('telescope.builtin').buffers({initial_mode='normal'})<CR>", opt)
+vim.keymap.set('n', '<Leader>l', "<CMD>lua require('telescope.builtin').buffers({initial_mode='normal', sort_mru=true})<CR>", opt)
 vim.keymap.set('n', '<Leader>f', require('telescope.builtin').find_files, opt)
 vim.keymap.set('n', '<Leader>g', require('telescope.builtin').live_grep, opt)
