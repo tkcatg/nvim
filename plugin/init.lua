@@ -43,7 +43,23 @@ return require('packer').startup(function(use)
           lualine_b = {{'filename', path = 1}},
           lualine_c = {'branch', 'diff', 'diagnostics'},
           lualine_x = {'encoding', 'fileformat', 'filetype'},
-          lualine_y = {'progress'},
+          lualine_y = {'progress',
+          function() -- https://qiita.com/Liquid-system/items/b95e8aec02c6b0de4235
+            local msg = "N/A"
+            local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
+            local clients = vim.lsp.get_active_clients()
+            if next(clients) == nil then
+              return msg
+            end
+            for _, client in ipairs(clients) do
+              local filetypes = client.config.filetypes
+              if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 and client.name ~= "null-ls" then
+                return client.name
+              end
+            end
+            return msg
+          end
+          },
           lualine_z = {{'datetime', style = '%m/%d %H:%M:%S'}},
         },
         inactive_sections = {
@@ -145,6 +161,7 @@ return require('packer').startup(function(use)
 
   use {
     'nvim-treesitter/nvim-treesitter',
+    tag = 'v*',
     config = function()
       require('nvim-treesitter.configs').setup ({
         highlight = {
