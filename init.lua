@@ -58,7 +58,7 @@ for key, value in pairs({
   ['<C-p>'] = '<Up>',
   ['<C-n>'] = '<Down>',
 }) do
-  vim.keymap.set('c', key, value, { silent = true, noremap = true })
+  vim.keymap.set('c', key, value, { silent = false, noremap = true })
 end
 
 -- Practical Vim tips#36+α --
@@ -71,6 +71,10 @@ for key, value in pairs({
 }) do
   vim.keymap.set('n', key, value, { silent = true, noremap = true })
 end
+
+-- Diagnotic --
+vim.keymap.set('n', '[d', function() vim.diagnostic.goto_prev() end, { silent = true, noremap = true })
+vim.keymap.set('n', ']d', function() vim.diagnostic.goto_next() end, { silent = true, noremap = true })
 
 -- Practical Vim tips#86 --
 vim.keymap.set('x', '*', ':<C-u>VSetSearch<CR>/<C-R>=@/<CR><CR>', { silent = true, noremap = true })
@@ -86,15 +90,22 @@ endfunction
 command! VSetSearch call s:vsetsearch()
 ]])
 
--- Diagnotic --
-vim.keymap.set('n', '[d', function() vim.diagnostic.goto_prev() end, { silent = true, noremap = true })
-vim.keymap.set('n', ']d', function() vim.diagnostic.goto_next() end, { silent = true, noremap = true })
-
 -- Terminal --
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { silent = true, noremap = true })
 
 -- Tab --
 vim.keymap.set('n', ':cd', ':tcd', { silent = false, noremap = true }) -- !!!There's room for further improvement.!!!
+
+-- META --
+-- iTerm2 setting : [ Preferences ] > [ Keys ] > [ General ] > [ Left Option key: "Esc+" ] --
+vim.keymap.set('n', '<M-j>', '<C-w>j', { silent = true, noremap = true })
+vim.keymap.set('n', '<M-k>', '<C-w>k', { silent = true, noremap = true })
+vim.keymap.set('n', '<M-h>', '<C-w>h', { silent = true, noremap = true })
+vim.keymap.set('n', '<M-l>', '<C-w>l', { silent = true, noremap = true })
+vim.keymap.set('n', '<M-J>', '<C-e>', { silent = true, noremap = true })
+vim.keymap.set('n', '<M-K>', '<C-y>', { silent = true, noremap = true })
+vim.keymap.set('n', '<M-H>', 'zh', { silent = true, noremap = true })
+vim.keymap.set('n', '<M-L>', 'zl', { silent = true, noremap = true })
 
 -- Leader --
 vim.g.mapleader = ' '
