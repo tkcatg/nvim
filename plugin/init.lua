@@ -120,7 +120,7 @@ return require('packer').startup(function(use)
       vim.api.nvim_create_autocmd({ 'FileType' }, {
         group = 'fern',
         pattern = 'fern',
-        command = 'setlocal nonumber | setlocal nocursorcolumn',
+        command = 'setlocal nonumber | setlocal nocursorcolumn | nmap <buffer> <cr> <Plug>(fern-action-tcd)',
       })
     end
   }

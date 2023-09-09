@@ -93,9 +93,6 @@ command! VSetSearch call s:vsetsearch()
 -- Terminal --
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { silent = true, noremap = true })
 
--- Tab --
-vim.keymap.set('n', ':cd', ':tcd', { silent = false, noremap = true }) -- !!!There's room for further improvement.!!!
-
 -- META --
 -- iTerm2 setting : [ Preferences ] > [ Keys ] > [ General ] > [ Left Option key: "Esc+" ] --
 vim.keymap.set('n', '<M-j>', '<C-w>j', { silent = true, noremap = true })
