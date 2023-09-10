@@ -103,6 +103,7 @@ vim.keymap.set('n', '<M-J>', '<C-e>', { silent = true, noremap = true })
 vim.keymap.set('n', '<M-K>', '<C-y>', { silent = true, noremap = true })
 vim.keymap.set('n', '<M-H>', 'zh', { silent = true, noremap = true })
 vim.keymap.set('n', '<M-L>', 'zl', { silent = true, noremap = true })
+vim.keymap.set('n', '<M-q>', '<cmd>:q<cr>', { silent = true, noremap = true })
 
 -- Leader --
 vim.g.mapleader = ' '
