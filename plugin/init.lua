@@ -1,23 +1,24 @@
--- https://github.com/wbthomason/packer.nvim#bootstrapping
-
-local ensure_packer = function()
-  local fn = vim.fn
-  local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
-  if fn.empty(fn.glob(install_path)) > 0 then
-    fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
-    vim.cmd [[packadd packer.nvim]]
-    return true
-  end
-  return false
+-- ======================================================== --
+-- BOOTSTRAP LAZY.NVIM (https://github.com/folke/lazy.nvim) --
+-- ======================================================== --
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
 end
+vim.opt.rtp:prepend(lazypath)
 
-local packer_bootstrap = ensure_packer()
-
-return require('packer').startup(function(use)
-  use 'wbthomason/packer.nvim'
-  use {
+require("lazy").setup({
+  { -------------------------
     'machakann/vim-sandwich',
-    config = function()  -- https://qiita.com/seroqn/items/180e8414c0b9b2431648
+    -------------------------
+    config = function() -- https://qiita.com/seroqn/items/180e8414c0b9b2431648
       vim.cmd([[
         let g:sandwich_no_default_key_mappings = 1
         let g:operator_sandwich_no_default_key_mappings = 1
@@ -26,9 +27,27 @@ return require('packer').startup(function(use)
         nmap <silent>cs <Plug>(operator-sandwich-replace)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-query-a)
       ]])
     end
-  }
-  use {
+  },
+  { ------------------------
+    'folke/tokyonight.nvim',
+    ------------------------
+    config = function()
+      require('tokyonight').setup({
+        style = "night",
+        transparent = true,
+        styles = {
+          comments = { italic = false },
+          keywords = { italic = false },
+          sidebars = "transparent", -- style for sidebars
+          floats = "transparent", -- style for floating windows
+        },
+      })
+      vim.cmd([[colorscheme tokyonight]])
+    end
+  },
+  { ----------------------------
     'nvim-lualine/lualine.nvim',
+    ----------------------------
     config = function()
       require('lualine').setup {
         options = {
@@ -55,21 +74,21 @@ return require('packer').startup(function(use)
           lualine_c = {'branch', 'diff', 'diagnostics'},
           lualine_x = {'encoding', 'fileformat', 'filetype'},
           lualine_y = {'progress',
-          function() -- https://qiita.com/Liquid-system/items/b95e8aec02c6b0de4235
-            local msg = "N/A"
-            local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
-            local clients = vim.lsp.get_active_clients()
-            if next(clients) == nil then
+            function() -- https://qiita.com/Liquid-system/items/b95e8aec02c6b0de4235
+              local msg = "N/A"
+              local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
+              local clients = vim.lsp.get_active_clients()
+              if next(clients) == nil then
+                return msg
+              end
+              for _, client in ipairs(clients) do
+                local filetypes = client.config.filetypes
+                if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 and client.name ~= "null-ls" then
+                  return client.name
+                end
+              end
               return msg
             end
-            for _, client in ipairs(clients) do
-              local filetypes = client.config.filetypes
-              if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 and client.name ~= "null-ls" then
-                return client.name
-              end
-            end
-            return msg
-          end
           },
           lualine_z = {{'datetime', style = '%m/%d %H:%M:%S'}},
         },
@@ -87,25 +106,14 @@ return require('packer').startup(function(use)
         extensions = {}
       }
     end
-  }
-  use {
-    'folke/tokyonight.nvim',
-    config = function()
-      require('tokyonight').setup({
-        style = "night",
-        transparent = true,
-          styles = {
-            comments = { italic = false },
-            keywords = { italic = false },
-            sidebars = "transparent", -- style for sidebars
-            floats = "transparent", -- style for floating windows
-          },
-      })
-      vim.cmd([[colorscheme tokyonight]])
-    end
-  }
-  use {
+  },
+  { -----------------------
     'lambdalisue/fern.vim',
+    -----------------------
+    lazy = true,
+    keys = {
+      { '<Leader>o', '<CMD>Fern . -reveal=%:h -drawer -toggle<CR>' },
+    },
     config = function()
       vim.cmd([[
         let g:fern#renderer#default#leading = " "
@@ -123,10 +131,17 @@ return require('packer').startup(function(use)
         command = 'setlocal nonumber | setlocal nocursorcolumn | nmap <buffer> <cr> <Plug>(fern-action-tcd)',
       })
     end
-  }
-  use {
+  },
+  { --------------------------------
     'nvim-telescope/telescope.nvim',
-    requires = {
+    --------------------------------
+    lazy = true,
+    keys = {
+      { '<Leader>l', "<CMD>lua require('telescope.builtin').buffers({initial_mode='normal', sort_mru=true})<CR>" },
+      { '<Leader>f', "<CMD>lua require('telescope.builtin').find_files()<CR>" },
+      { '<Leader>g', "<CMD>lua require('telescope.builtin').live_grep()<CR>" },
+    },
+    dependencies = {
       { 'nvim-lua/plenary.nvim' }
     },
     config = function()
@@ -150,11 +165,21 @@ return require('packer').startup(function(use)
         }
       })
     end
-  }
-  -- LSP --
-  use {
-    'williamboman/mason.nvim', -- after 'williamboman/nvim-esp-installer'
+  },
+  { -------------------------
+    'TimUntersberger/neogit',
+    -------------------------
     requires = {
+      { 'nvim-lua/plenary.nvim' }
+    },
+    config = function()
+      require('neogit').setup { }
+    end
+  },
+  { --------------------------
+    'williamboman/mason.nvim', -- after 'williamboman/nvim-esp-installer'
+    --------------------------
+    dependencies = {
       { 'neovim/nvim-lspconfig' },
       { 'williamboman/mason-lspconfig.nvim' },
       { 'hrsh7th/cmp-nvim-lsp' },
@@ -179,33 +204,5 @@ return require('packer').startup(function(use)
         end
       })
     end
-  }
-
-  use {
-    'nvim-treesitter/nvim-treesitter',
-    tag = 'v*',
-    config = function()
-      require('nvim-treesitter.configs').setup ({
-        highlight = {
-          enable = true,
-          disable = {},
-        }
-      })
-    end
-  }
-  use {
-    'TimUntersberger/neogit',
-    requires = {
-      { 'nvim-lua/plenary.nvim' }
-    },
-    config = function()
-      require('neogit').setup { }
-    end
-  }
-
-  -- Automatically set up your configuration after cloning packer.nvim
-  -- Put this at the end after all plugins
-  if packer_bootstrap then
-    require('packer').sync()
-  end
-end)
+  },
+})

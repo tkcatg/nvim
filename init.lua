@@ -3,9 +3,7 @@
 -- ------ --
 --> ./plugin/init.lua
 
---> ./lua/my/ls/init.lua
 --> ./lua/my/dirtab/init.lua
-
 require("my.dirtab").setup({enable = true})
 
 -- ------- --
@@ -116,9 +114,3 @@ vim.keymap.set('n', '<Leader>v', '<CMD>:edit $MYVIMRC<CR>', opt)
 vim.keymap.set('n', '<Leader>t', '<CMD>terminal<CR><CMD>startinsert<CR>', opt)
 -- Toggle wrap
 vim.keymap.set('n', '<Leader>w', '<CMD>:lua vim.wo.wrap = not vim.wo.wrap<CR>', opt)
--- Fern
-vim.keymap.set('n', '<Leader>o', '<CMD>Fern . -reveal=%:h -drawer -toggle<CR>', opt)
--- Telescope
-vim.keymap.set('n', '<Leader>l', "<CMD>lua require('telescope.builtin').buffers({initial_mode='normal', sort_mru=true})<CR>", opt)
-vim.keymap.set('n', '<Leader>f', require('telescope.builtin').find_files, opt)
-vim.keymap.set('n', '<Leader>g', require('telescope.builtin').live_grep, opt)
