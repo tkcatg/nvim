@@ -78,6 +78,11 @@ vim.keymap.set('n', ']d', function() vim.diagnostic.goto_next() end, { silent = 
 vim.keymap.set('x', '*', ':<C-u>VSetSearch<CR>/<C-R>=@/<CR><CR>', { silent = true, noremap = true })
 vim.keymap.set('x', '#', ':<C-u>VSetSearch<CR>?<C-R>=@/<CR><CR>', { silent = true, noremap = true })
 
+-- Vimmerのための括弧編集入門(https://zenn.dev/dog/articles/vimmerkakko2024) --
+vim.keymap.set('i', '(', '()<Left>', { silent = true, noremap = true })
+vim.keymap.set('i', '{', '{}<Left>', { silent = true, noremap = true })
+vim.keymap.set('i', '[', '[]<Left>', { silent = true, noremap = true })
+
 vim.cmd([[
 function! s:vsetsearch()
   let temp = @s
