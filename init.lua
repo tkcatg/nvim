@@ -18,7 +18,6 @@ for key, value in pairs({
   cursorcolumn = true,
   list = true,
   listchars = {tab='»-', trail='-', extends='»', precedes='«', nbsp='%', eol='↲'},
-  termencoding = 'utf-8',
   fileencoding = 'utf-8',
   fileencodings = 'utf-8,cp932',
   laststatus = 3,

@@ -166,16 +166,6 @@ require("lazy").setup({
       })
     end
   },
-  { -------------------------
-    'TimUntersberger/neogit',
-    -------------------------
-    requires = {
-      { 'nvim-lua/plenary.nvim' }
-    },
-    config = function()
-      require('neogit').setup { }
-    end
-  },
   { --------------------------
     'williamboman/mason.nvim', -- after 'williamboman/nvim-esp-installer'
     --------------------------
@@ -188,21 +178,6 @@ require("lazy").setup({
     config = function()
       require('mason').setup()
       require('cmp').setup({ sources = { { name = 'nvim_lsp' } } })
-      require('mason-lspconfig').setup_handlers({
-        function(server_name)
-          local opts = {
-            capabilities = require('cmp_nvim_lsp').default_capabilities()
-          }
-          -- opts.on_attach = function(_, bufnr)
-          --   local bufopts = { silent = true, buffer = bufnr }
-          --   vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-          --   vim.keymap.set('n', 'gtD', vim.lsp.buf.type_definition, bufopts)
-          --   vim.keymap.set('n', 'grf', vim.lsp.buf.references, bufopts)
-          --   vim.keymap.set('n', '<space>p', vim.lsp.buf.format, bufopts)
-          -- end
-          require('lspconfig')[server_name].setup(opts)
-        end
-      })
     end
   },
 })
