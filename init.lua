@@ -34,9 +34,7 @@ vim.opt.clipboard:append{'unnamedplus'}
 -- ------ --
 -- Keymap --
 -- ------ --
-vim.cmd([[
-  nnoremap <expr> / '/\v'
-  nnoremap <expr> ? '?\v'
+vim.cmd([[ nnoremap <expr> / '/\v' nnoremap <expr> ? '?\v'
 ]])
 
 for key, value in pairs({
@@ -72,15 +70,14 @@ end
 -- Diagnotic --
 vim.keymap.set('n', '[d', function() vim.diagnostic.goto_prev() end, { silent = true, noremap = true })
 vim.keymap.set('n', ']d', function() vim.diagnostic.goto_next() end, { silent = true, noremap = true })
-
 -- Practical Vim tips#86 --
 vim.keymap.set('x', '*', ':<C-u>VSetSearch<CR>/<C-R>=@/<CR><CR>', { silent = true, noremap = true })
 vim.keymap.set('x', '#', ':<C-u>VSetSearch<CR>?<C-R>=@/<CR><CR>', { silent = true, noremap = true })
 
--- Vimmerのための括弧編集入門(https://zenn.dev/dog/articles/vimmerkakko2024) --
-vim.keymap.set('i', '(', '()<Left>', { silent = true, noremap = true })
-vim.keymap.set('i', '{', '{}<Left>', { silent = true, noremap = true })
-vim.keymap.set('i', '[', '[]<Left>', { silent = true, noremap = true })
+-- 【廃止】開始括弧入力時に閉じ括弧を入力
+-- vim.keymap.set('i', '(', '()<Left>', { silent = true, noremap = true })
+-- vim.keymap.set('i', '{', '{}<Left>', { silent = true, noremap = true })
+-- vim.keymap.set('i', '[', '[]<Left>', { silent = true, noremap = true })
 
 vim.cmd([[
 function! s:vsetsearch()
