@@ -34,8 +34,9 @@ vim.opt.clipboard:append{'unnamedplus'}
 -- ------ --
 -- Keymap --
 -- ------ --
-vim.cmd([[ nnoremap <expr> / '/\v' nnoremap <expr> ? '?\v'
-]])
+-- vim.cmd([[ nnoremap <expr> / '/\v' nnoremap <expr> ? '?\v' ]])
+vim.keymap.set('n', '/', '/\\v', { silent = false, noremap = true })
+vim.keymap.set('n', '?', '?\\v', { silent = false, noremap = true })
 
 for key, value in pairs({
   ['x'] = '"_x', ['s'] = '"_s', ['j'] = 'gj', ['k'] = 'gk',
