@@ -34,7 +34,6 @@ vim.opt.clipboard:append{'unnamedplus'}
 -- ------ --
 -- Keymap --
 -- ------ --
--- vim.cmd([[ nnoremap <expr> / '/\v' nnoremap <expr> ? '?\v' ]])
 vim.keymap.set('n', '/', '/\\v', { silent = false, noremap = true })
 vim.keymap.set('n', '?', '?\\v', { silent = false, noremap = true })
 
@@ -46,13 +45,8 @@ end
 
 -- Practical Vim tips#34+α --
 for key, value in pairs({
-  ['<C-a>'] = '<Home>',
-  ['<C-e>'] = '<End>',
-  ['<C-b>'] = '<Left>',
-  ['<C-f>'] = '<Right>',
-  ['<C-d>'] = '<Del>',
-  ['<C-p>'] = '<Up>',
-  ['<C-n>'] = '<Down>',
+  ['<C-a>'] = '<Home>', ['<C-e>'] = '<End>', ['<C-b>'] = '<Left>', ['<C-f>'] = '<Right>',
+  ['<C-d>'] = '<Del>', ['<C-p>'] = '<Up>', ['<C-n>'] = '<Down>',
 }) do
   vim.keymap.set('c', key, value, { silent = false, noremap = true })
 end
@@ -96,26 +90,24 @@ command! VSetSearch call s:vsetsearch()
 -- Terminal --
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { silent = true, noremap = true })
 
--- META --
--- iTerm2 setting : [ Preferences ] > [ Keys ] > [ General ] > [ Left Option key: "Esc+" ] --
-vim.keymap.set('n', '<M-j>', '<C-w>j', { silent = true, noremap = true })
-vim.keymap.set('n', '<M-k>', '<C-w>k', { silent = true, noremap = true })
-vim.keymap.set('n', '<M-h>', '<C-w>h', { silent = true, noremap = true })
-vim.keymap.set('n', '<M-l>', '<C-w>l', { silent = true, noremap = true })
-vim.keymap.set('n', '<M-J>', '<C-e>', { silent = true, noremap = true })
-vim.keymap.set('n', '<M-K>', '<C-y>', { silent = true, noremap = true })
-vim.keymap.set('n', '<M-H>', 'zh', { silent = true, noremap = true })
-vim.keymap.set('n', '<M-L>', 'zl', { silent = true, noremap = true })
-vim.keymap.set('n', '<M-q>', '<cmd>:q<cr>', { silent = true, noremap = true })
+-- Alt --
+-- !!! Get used to the defaults !!! --
+-- vim.keymap.set('n', '<M-j>', '<C-w>j', { silent = true, noremap = true }) --
+-- vim.keymap.set('n', '<M-k>', '<C-w>k', { silent = true, noremap = true }) --
+-- vim.keymap.set('n', '<M-h>', '<C-w>h', { silent = true, noremap = true }) --
+-- vim.keymap.set('n', '<M-l>', '<C-w>l', { silent = true, noremap = true }) --
+-- vim.keymap.set('n', '<M-J>', '<C-e>', { silent = true, noremap = true }) --
+-- vim.keymap.set('n', '<M-K>', '<C-y>', { silent = true, noremap = true }) --
+-- vim.keymap.set('n', '<M-H>', 'zh', { silent = true, noremap = true }) --
+-- vim.keymap.set('n', '<M-L>', 'zl', { silent = true, noremap = true }) --
+-- vim.keymap.set('n', '<M-q>', '<cmd>:q<cr>', { silent = true, noremap = true }) --
 
 -- Leader --
 vim.g.mapleader = ' '
 
-local opt = { silent = true, noremap = true }
-
 -- Knocking up my vimrc.
-vim.keymap.set('n', '<Leader>v', '<CMD>:edit $MYVIMRC<CR>', opt)
+vim.keymap.set('n', '<Leader>v', '<CMD>:edit $MYVIMRC<CR>', { silent = true, noremap = true })
 -- Entering terminal mode and insert mode.
-vim.keymap.set('n', '<Leader>t', '<CMD>terminal<CR><CMD>startinsert<CR>', opt)
+vim.keymap.set('n', '<Leader>t', '<CMD>terminal<CR><CMD>startinsert<CR>', { silent = true, noremap = true })
 -- Toggle wrap
-vim.keymap.set('n', '<Leader>w', '<CMD>:lua vim.wo.wrap = not vim.wo.wrap<CR>', opt)
+vim.keymap.set('n', '<Leader>w', '<CMD>:lua vim.wo.wrap = not vim.wo.wrap<CR>', { silent = true, noremap = true })

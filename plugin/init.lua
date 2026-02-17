@@ -16,16 +16,14 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   { -------------------------
-    'machakann/vim-sandwich',
+    "kylechui/nvim-surround",
     -------------------------
-    config = function() -- https://qiita.com/seroqn/items/180e8414c0b9b2431648
-      vim.cmd([[
-        let g:sandwich_no_default_key_mappings = 1
-        let g:operator_sandwich_no_default_key_mappings = 1
-        nmap ys <Plug>(operator-sandwich-add)
-        nmap <silent>ds <Plug>(operator-sandwich-delete)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-query-a)
-        nmap <silent>cs <Plug>(operator-sandwich-replace)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-query-a)
-      ]])
+    version = "^3.0.0", -- Use for stability; omit to use `main` branch for the latest features
+    event = "VeryLazy",
+    config = function()
+      require("nvim-surround").setup({
+          -- Configuration here, or leave empty to use defaults
+      })
     end
   },
   { ------------------------
@@ -157,8 +155,8 @@ require("lazy").setup({
             mappings = {
               n = {
                 ['<Leader>l'] = function() require('telescope.actions').select_default(vim.fn.bufnr('%')) end,
+                ['l'] = function() require('telescope.actions').select_default(vim.fn.bufnr('%')) end,
                 ['x'] = function() require('telescope.actions').delete_buffer(vim.fn.bufnr('%')) end,
-                ['n'] = function() require('telescope.actions').close(vim.fn.bufnr('%')) end,
               },
             },
           },
