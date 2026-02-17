@@ -80,6 +80,9 @@ vim.keymap.set('x', '#', ':<C-u>VSetSearch<CR>?<C-R>=@/<CR><CR>', { silent = tru
 -- vim.keymap.set('i', '{', '{}<Left>', { silent = true, noremap = true })
 -- vim.keymap.set('i', '[', '[]<Left>', { silent = true, noremap = true })
 
+-- 挿入モードから抜ける(jjで始まる入力はしないのでESCにBind)
+vim.keymap.set('i', 'jj', '<Esc>', { silent = true, noremap = true })
+
 vim.cmd([[
 function! s:vsetsearch()
   let temp = @s
