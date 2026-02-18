@@ -15,6 +15,19 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
+  { ------------------
+    "hrsh7th/vim-eft",
+    ------------------
+    config = function()
+      for key, value in pairs({
+        ['f'] = '<Plug>(eft-f)', ['F'] = '<Plug>(eft-F)', ['t'] = '<Plug>(eft-t)', ['T'] = '<Plug>(eft-T)', [';'] = '<Plug>(eft-repeat)', 
+      }) do
+        vim.keymap.set('n', key, value, { silent = true, remap = true })
+        vim.keymap.set('x', key, value, { silent = true, remap = true })
+        vim.keymap.set('o', key, value, { silent = true, remap = true })
+      end
+    end,
+  },
   { -------------------------
     "kylechui/nvim-surround",
     -------------------------
