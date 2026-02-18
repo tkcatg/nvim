@@ -88,7 +88,7 @@ require("lazy").setup({
             function() -- https://qiita.com/Liquid-system/items/b95e8aec02c6b0de4235
               local msg = "N/A"
               local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
-              local clients = vim.lsp.get_active_clients()
+              local clients = vim.lsp.get_clients()
               if next(clients) == nil then
                 return msg
               end
@@ -177,18 +177,120 @@ require("lazy").setup({
       })
     end
   },
-  { --------------------------
-    'williamboman/mason.nvim', -- after 'williamboman/nvim-esp-installer'
-    --------------------------
-    dependencies = {
-      { 'neovim/nvim-lspconfig' },
-      { 'williamboman/mason-lspconfig.nvim' },
-      { 'hrsh7th/cmp-nvim-lsp' },
-      { 'hrsh7th/nvim-cmp' },
-    },
-    config = function()
-      require('mason').setup()
-      require('cmp').setup({ sources = { { name = 'nvim_lsp' } } })
-    end
-  },
+  -- { ------------------------
+  --   "neovim/nvim-lspconfig",
+  --   ------------------------
+  --   config = function()
+  --     -- vim.lsp.config.sourcekit.setup {
+  --     --   capabilities = {
+  --     --     workspace = {
+  --     --       didChangeWatchedFiles = {
+  --     --         dynamicRegistration = true,
+  --     --       },
+  --     --     },
+  --     --   },
+  --     -- }
+
+  --     vim.api.nvim_create_autocmd('LspAttach', {
+  --       desc = 'LSP Actions',
+  --       callback = function(args)
+  --         vim.keymap.set('n', 'K', vim.lsp.buf.hover, {noremap = true, silent = true})
+  --         vim.keymap.set('n', 'gd', vim.lsp.buf.definition, {noremap = true, silent = true})
+  --       end,
+  --     })
+  --   end,
+  -- },
+  -- { -------------------
+  --   "hrsh7th/nvim-cmp",
+  --   -------------------
+  --   version = false,
+  --   event = "InsertEnter",
+  --   dependencies = {
+  --     "hrsh7th/cmp-nvim-lsp",
+  --     "hrsh7th/cmp-path",
+  --     "hrsh7th/cmp-buffer",
+  --   },
+  --   config = function()
+  --     local cmp = require('cmp')
+  --     local opts = {
+  --       -- Where to get completion results from
+  --       sources = cmp.config.sources {
+  --         { name = "nvim_lsp" },
+  --         { name = "buffer"},
+  --         { name = "path" },
+  --       },
+  --       -- Make 'enter' key select the completion
+  --       mapping = cmp.mapping.preset.insert({
+  --         ["<CR>"] = cmp.mapping.confirm({ select = true })
+  --       }),
+  --     }
+  --     cmp.setup(opts)
+  --   end,
+  -- },
+  -- {
+  --   "hrsh7th/nvim-cmp",
+  --   version = false,
+  --   event = "InsertEnter",
+  --   dependencies = {
+  --       "hrsh7th/cmp-nvim-lsp",
+  --       "hrsh7th/cmp-path",
+  --       "hrsh7th/cmp-buffer",
+  --       "L3MON4D3/LuaSnip",
+  --   },
+  --   config = function()
+  --     local cmp = require('cmp')
+  --     local luasnip = require('cmp')
+  --     local opts = {
+  --         -- Where to get completion results from
+  --         sources = cmp.config.sources {
+  --             { name = "nvim_lsp" },
+  --             { name = "buffer"},
+  --             { name = "path" },
+  --         },
+  --         mapping = cmp.mapping.preset.insert({
+  --             -- Make 'enter' key select the completion
+  --             ["<CR>"] = cmp.mapping.confirm({ select = true }),
+  --             -- Super-tab behavior
+  --             ["<tab>"] = cmp.mapping(function(original)
+  --                 if cmp.visible() then
+  --                     cmp.select_next_item() -- run completion selection if completing
+  --                 elseif luasnip.expand_or_jumpable() then
+  --                     luasnip.expand_or_jump() -- expand snippets
+  --                 else
+  --                     original()      -- run the original behavior if not completing
+  --                 end
+  --             end, {"i", "s"}),
+  --             ["<S-tab>"] = cmp.mapping(function(original)
+  --                 if cmp.visible() then
+  --                     cmp.select_prev_item()
+  --                 elseif luasnip.expand_or_jumpable() then
+  --                     luasnip.jump(-1)
+  --                 else
+  --                     original()
+  --                 end
+  --             end, {"i", "s"}),
+  --         }),
+  --         snippets = {
+  --             expand = function(args)
+  --                 luasnip.lsp_expand(args)
+  --             end,
+  --         },
+  --     }
+  --     cmp.setup(opts)
+  --   end,
+  -- },
+  -- { --------------------------
+  --   'williamboman/mason.nvim', -- after 'williamboman/nvim-esp-installer'
+  --   --------------------------
+  --   dependencies = {
+  --     { 'neovim/nvim-lspconfig' },
+  --     { 'williamboman/mason-lspconfig.nvim' },
+  --     { 'hrsh7th/cmp-nvim-lsp' },
+  --     { 'hrsh7th/nvim-cmp' },
+  --   },
+  --   config = function()
+  --     require('mason').setup()
+  --     require('cmp').setup({ sources = { { name = 'nvim_lsp' } } })
+  --   end
+  -- },
 })

@@ -1,10 +1,12 @@
 -- ------------------------------------- --
 -- Plugin(autoload. press 'gF' to jump.) --
 -- ------------------------------------- --
+-- The result is that all directories in 'runtimepath' will be searched for the "plugin" sub-directory and all files ending in ".vim" or ".lua" will be sourced (in alphabetical order per directory),
+-- also in subdirectories. First "*.vim" are sourced, then "*.lua" files, per directory. (See also :help load-plugins.)
 --> ./plugin/init.lua
 
 --> ./lua/my/dirtab/init.lua
-require("my.dirtab").setup({enable = true})
+require("my.dirtab").setup()
 
 -- ------- --
 -- Setting --

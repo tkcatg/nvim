@@ -10,9 +10,9 @@ local function dirtab(options)
     local cwd = vim.fs.basename(vim.fn.getcwd(vim.fn.tabpagewinnr(tabnr), tabnr))
 
     if tabnr == current_tabnr then
-      line = line .. "%#TabLineSel#  " .. cwd .. " %#TabLineFill#"
+      line = line .. "%#TabLineSel# " .. cwd .. " %#TabLineFill#"
     else
-      line = line .. "%#TabLine#  " .. cwd .. " %#TabLineFill#"
+      line = line .. "%#TabLine# " .. cwd .. " %#TabLineFill#"
     end
   end
 
