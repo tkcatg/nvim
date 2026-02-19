@@ -181,15 +181,16 @@ require("lazy").setup({
   --   "neovim/nvim-lspconfig",
   --   ------------------------
   --   config = function()
-  --     -- vim.lsp.config.sourcekit.setup {
-  --     --   capabilities = {
-  --     --     workspace = {
-  --     --       didChangeWatchedFiles = {
-  --     --         dynamicRegistration = true,
-  --     --       },
-  --     --     },
-  --     --   },
-  --     -- }
+  --     local lspconfig = require('lspconfig')
+  --     lspconfig.sourcekit.setup {
+  --       capabilities = {
+  --         workspace = {
+  --           didChangeWatchedFiles = {
+  --             dynamicRegistration = true,
+  --           },
+  --         },
+  --       },
+  --     }
 
   --     vim.api.nvim_create_autocmd('LspAttach', {
   --       desc = 'LSP Actions',
@@ -279,18 +280,19 @@ require("lazy").setup({
   --     cmp.setup(opts)
   --   end,
   -- },
-  -- { --------------------------
-  --   'williamboman/mason.nvim', -- after 'williamboman/nvim-esp-installer'
-  --   --------------------------
-  --   dependencies = {
-  --     { 'neovim/nvim-lspconfig' },
-  --     { 'williamboman/mason-lspconfig.nvim' },
-  --     { 'hrsh7th/cmp-nvim-lsp' },
-  --     { 'hrsh7th/nvim-cmp' },
-  --   },
-  --   config = function()
-  --     require('mason').setup()
-  --     require('cmp').setup({ sources = { { name = 'nvim_lsp' } } })
-  --   end
-  -- },
+  {
+    "mason-org/mason.nvim",
+    build = ":MasonUpdate",
+    cmd = { "Mason", "MasonUpdate", "MasonLog", "MasonInstall", "MasonUninstall", "MasonUninstallAll" },
+    config = true,
+  },
+  {
+    "mason-org/mason-lspconfig.nvim",
+    dependencies = {
+      { "mason-org/mason.nvim" },
+      { "neovim/nvim-lspconfig" },
+    },
+    event = { "BufReadPre", "BufNewFile" },
+    config = true,
+  },
 })
