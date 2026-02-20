@@ -64,17 +64,9 @@ for key, value in pairs({
   vim.keymap.set('n', key, value, { silent = true, noremap = true })
 end
 
--- Diagnotic --
-vim.keymap.set('n', '[d', function() vim.diagnostic.goto_prev() end, { silent = true, noremap = true })
-vim.keymap.set('n', ']d', function() vim.diagnostic.goto_next() end, { silent = true, noremap = true })
 -- Practical Vim tips#86 --
 vim.keymap.set('x', '*', ':<C-u>VSetSearch<CR>/<C-R>=@/<CR><CR>', { silent = true, noremap = true })
 vim.keymap.set('x', '#', ':<C-u>VSetSearch<CR>?<C-R>=@/<CR><CR>', { silent = true, noremap = true })
-
--- 【廃止】開始括弧入力時に閉じ括弧を入力
--- vim.keymap.set('i', '(', '()<Left>', { silent = true, noremap = true })
--- vim.keymap.set('i', '{', '{}<Left>', { silent = true, noremap = true })
--- vim.keymap.set('i', '[', '[]<Left>', { silent = true, noremap = true })
 
 -- 挿入モードから抜ける(jjで始まる入力はしないのでESCにBind)
 vim.keymap.set('i', 'jj', '<Esc>', { silent = true, noremap = true })
