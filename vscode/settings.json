@@ -1,0 +1,22 @@
+{
+    "git.autofetch": true,
+    "terminal.integrated.defaultProfile.windows": "Command Prompt",
+    "workbench.iconTheme": null,
+    "workbench.editor.showTabs": "none",
+    // "workbench.statusBar.visible": false,
+    "editor.minimap.enabled": false,
+    
+    // highlight
+    "workbench.colorCustomizations": { "editor.lineHighlightBackground": "#333333", "editor.lineHighlightBorder": "#030d2b33" },
+    "editor.renderLineHighlight": "all",
+    "editor.renderLineHighlightOnlyWhenFocus": true,
+
+    "extensions.ignoreRecommendations": true,
+    "extensions.experimental.affinity": { "asvetliakov.vscode-neovim": 1 },
+    "vscode-neovim.neovimExecutablePaths.win32": "C:\\Neovim\\bin\\nvim.exe",
+    "vscode-neovim.neovimInitVimPaths.win32": "C:\\Users\\tkcatg\\AppData\\Local\\nvim\\init.lua",
+    "vscode-neovim.compositeKeys": { "jj": { "command": "vscode-neovim.escape" } },
+
+    // grassit
+    "glassit.alpha": 235
+}

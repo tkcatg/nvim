@@ -116,7 +116,8 @@ require("lazy").setup({
         inactive_winbar = {},
         extensions = {}
       }
-    end
+    end,
+    cond = not vim.g.vscode
   },
   { -----------------------
     'lambdalisue/fern.vim',
@@ -141,7 +142,8 @@ require("lazy").setup({
         pattern = 'fern',
         command = 'setlocal nonumber | setlocal nocursorcolumn | nmap <buffer> <cr> <Plug>(fern-action-tcd)',
       })
-    end
+    end,
+    cond = not vim.g.vscode
   },
   { --------------------------------
     'nvim-telescope/telescope.nvim',
@@ -175,7 +177,8 @@ require("lazy").setup({
           },
         }
       })
-    end
+    end,
+    cond = not vim.g.vscode,
   },
   -- { ------------------------
   --   "neovim/nvim-lspconfig",
@@ -285,6 +288,7 @@ require("lazy").setup({
     build = ":MasonUpdate",
     cmd = { "Mason", "MasonUpdate", "MasonLog", "MasonInstall", "MasonUninstall", "MasonUninstallAll" },
     config = true,
+    cond = not vim.g.vscode,
   },
   {
     "mason-org/mason-lspconfig.nvim",
@@ -294,5 +298,6 @@ require("lazy").setup({
     },
     event = { "BufReadPre", "BufNewFile" },
     config = true,
+    cond = not vim.g.vscode,
   },
 })

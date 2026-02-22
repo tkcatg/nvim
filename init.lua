@@ -100,8 +100,35 @@ vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { silent = true, noremap = true })
 vim.g.mapleader = ' '
 
 -- Knocking up my vimrc.
-vim.keymap.set('n', '<Leader>v', '<CMD>:edit $MYVIMRC<CR>', { silent = true, noremap = true })
+if not vim.g.vscode then
+  vim.keymap.set('n', '<Leader>v', '<CMD>:edit $MYVIMRC<CR>', { silent = true, noremap = true })
+else
+  vim.keymap.set('n', '<Leader>v', function() require('vscode').notify("not supported.") end, { silent = true, noremap = true })
+end
+ 
 -- Entering terminal mode and insert mode.
-vim.keymap.set('n', '<Leader>t', '<CMD>terminal<CR><CMD>startinsert<CR>', { silent = true, noremap = true })
+if not vim.g.vscode then
+  vim.keymap.set('n', '<Leader>t', '<CMD>terminal<CR><CMD>startinsert<CR>', { silent = true, noremap = true })
+else
+  vim.keymap.set('n', '<Leader>t', function() require('vscode').call("workbench.action.terminal.toggleTerminal") end, { silent = true, noremap = true })
+end
+
 -- Toggle wrap
 vim.keymap.set('n', '<Leader>w', '<CMD>:lua vim.wo.wrap = not vim.wo.wrap<CR>', { silent = true, noremap = true })
+
+-- VSCode --
+if vim.g.vscode then
+  local function get_visual_selection()
+    local s_pos = vim.fn.getpos("v") -- 開始位置と終了位置を取得
+    local e_pos = vim.fn.getpos(".")
+    local mode = vim.api.nvim_get_mode().mode -- 現在のモード（'v', 'V', '<C-v>'）を取得
+    local region = vim.fn.getregion(s_pos, e_pos, { type = mode })-- 指定範囲のテキストを取得し、改行コードで結合
+    return table.concat(region, "\n")
+  end
+
+  vim.keymap.set('n', '<Leader>l', function() require('vscode').call('workbench.files.action.focusOpenEditorsView') end, { silent = true, noremap = true })
+  vim.keymap.set('n', '<Leader>o', function() require('vscode').call('workbench.files.action.focusFilesExplorer') end, { silent = true, noremap = true })
+  vim.keymap.set('n', '<Leader>f', function() require('vscode').call('workbench.action.quickOpen') end, { silent = true, noremap = true })
+  vim.keymap.set('n', '<Leader>g', function() require('vscode').call('workbench.action.findInFiles', { args= { filesToInclude = '${workspaceFolder}'} }) end, { silent = true, noremap = true })
+  vim.keymap.set('x', '<Leader>g', function() require('vscode').call('workbench.action.findInFiles', { args= { query = get_visual_selection(), filesToInclude = '${workspaceFolder}'} }) end, { silent = true, noremap = true })
+end

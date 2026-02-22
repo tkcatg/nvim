@@ -1,0 +1,90 @@
+[
+    {
+        "key": "space l",
+        "command": "workbench.files.action.focusOpenEditorsView", // open
+        "when": "neovim.mode != insert && ( filesExplorerFocus )"
+    },
+    {
+        "key": "space l",
+        "command": "workbench.action.toggleSidebarVisibility", // close
+        "when": "neovim.mode != insert && ( openEditorsFocus )"
+    },
+    {
+        "key": "space o",
+        "command": "workbench.files.action.focusFilesExplorer", // open
+        "when": "neovim.mode != insert && ( openEditorsFocus )"
+    },
+    {
+        "key": "space o",
+        "command": "workbench.action.toggleSidebarVisibility", // close
+        "when": "neovim.mode != insert && ( filesExplorerFocus )"
+    },
+    {
+        "key": "space f",
+        "command": "workbench.action.quickOpen", // open
+        "when": "neovim.mode != insert && ( openEditorsFocus || filesExplorerFocus )"
+    },
+    {
+        "key": "space g",
+        "command": "workbench.action.findInFiles", // open
+        "when": "neovim.mode != insert && ( openEditorsFocus || filesExplorerFocus )"
+    },
+    {
+        "key": "escape",
+        "command": "workbench.action.toggleSidebarVisibility", // close
+        "when": "neovim.mode != insert && ( searchInputBoxFocus )"
+    },
+    {
+        "key": "escape",
+        "command": "workbench.action.findInFiles", // move focus
+        "when": "neovim.mode != insert && ( searchResultListFocused )"
+    },
+    
+    // openeditors
+    {
+        "key": "d",
+        "command": "workbench.action.closeActiveEditor",
+        "when": "neovim.mode != insert && ( openEditorsFocus )"
+    },
+    
+    // here
+    {
+        "key": "space h",
+        "command": "revealFileInOS",
+        "when": "neovim.mode != insert && ( openEditorsFocus || filesExplorerFocus ) "
+    },
+
+    // terminal
+    {
+        "key": "space t",
+        "command": "openInIntegratedTerminal",
+        "when": "neovim.mode != insert && ( openEditorsFocus || filesExplorerFocus ) "
+    },
+    {
+        "key": "ctrl-w k",
+        "command": "workbench.action.focusLastEditorGroup",
+        "when": "neovim.mode != insert && panelFocus"
+    },
+
+    // find in files  
+    {
+        "key": "ctrl+p",
+        "command": "search.action.focusSearchList",
+        "when": "neovim.mode != insert && ( searchViewletVisible && searchInputBoxFocus )"
+    },
+    {
+        "key": "ctrl+n",
+        "command": "search.action.focusSearchList",
+        "when": "neovim.mode != insert && ( searchViewletVisible && searchInputBoxFocus )"
+    },
+    {
+        "key": "ctrl+p",
+        "command": "list.focusUp",
+        "when": "neovim.mode != insert && ( searchViewletVisible && searchResultListFocused )"
+    },
+    {
+        "key": "ctrl+n",
+        "command": "list.focusDown",
+        "when": "neovim.mode != insert && ( searchViewletVisible && searchResultListFocused )"
+    }
+]
