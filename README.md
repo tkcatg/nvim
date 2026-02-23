@@ -9,7 +9,14 @@ $ git clone git@github.com:tkcatg/nvim.git
 ```
 
 ## Windows
-```sh
+```cmd
 $ cd %LOCALAPPDATA%
 $ git clone git@github.com:tkcatg/nvim.git
+```
+
+### vscode環境
+`%APPDATA%\Code\User\`に`settings.json`と`keybindings.json`を配置する.
+```cmd
+$ cd vscode
+$ setting.bat install
 ```
