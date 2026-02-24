@@ -39,10 +39,19 @@ vim.opt.clipboard:append{'unnamedplus'}
 vim.keymap.set('n', '/', '/\\v', { silent = false, noremap = true })
 vim.keymap.set('n', '?', '?\\v', { silent = false, noremap = true })
 
-for key, value in pairs({
-  ['x'] = '"_x', ['s'] = '"_s', ['j'] = 'gj', ['k'] = 'gk',
-}) do
-  vim.keymap.set('n', key, value, { silent = true, noremap = true })
+vim.keymap.set('n', 'x', '"_x', { silent = true, noremap = true })
+vim.keymap.set('n', 's', '"_s', { silent = true, noremap = true })
+
+if not vim.g.vscode then
+  vim.keymap.set('n', 'j', 'gj', { silent = true, noremap = true })
+  vim.keymap.set('n', 'k', 'gk', { silent = true, noremap = true })
+else
+  -- Prevent folds from being unfolded automatically when searching or moving the cursor.
+  vim.keymap.set('n', 'j', function() require('vscode').call("cursorDown") end, { silent = true, noremap = true })
+  vim.keymap.set('n', 'k', function() require('vscode').call("cursorUp") end, { silent = true, noremap = true })
+  -- Folding
+  vim.keymap.set('n', 'za', function() require('vscode').call('editor.toggleFold') end, { silent = true, noremap = true })
+  vim.keymap.set('n', 'zR', function() require('vscode').call('editor.unfoldAll') end, { silent = true, noremap = true })
 end
 
 -- Practical Vim tips#34+α --
